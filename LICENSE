@@ -1,21 +1,699 @@
-MIT License
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Matemágica | Aprenda Matemática do 3º ao 5º Ano</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-Copyright (c) 2026 ryanmichelfreitas-design
+        body {
+            font-family: 'Segoe UI', 'Comic Neue', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', 'Poppins', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #f9f3e6 0%, #fff5e8 100%);
+            color: #2d3748;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+        /* Estilos gerais e tema lúdico */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+        /* cabeçalho divertido */
+        .header {
+            background: #ffb347;
+            background: linear-gradient(135deg, #FF9F4A, #FF7B2C);
+            color: white;
+            padding: 1.2rem 0;
+            border-radius: 0 0 48px 48px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+        .header::before {
+            content: "✨";
+            font-size: 140px;
+            position: absolute;
+            bottom: -30px;
+            left: -20px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: "🔢";
+            font-size: 130px;
+            position: absolute;
+            top: -20px;
+            right: 10px;
+            opacity: 0.2;
+            transform: rotate(15deg);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .title h1 {
+            font-size: 2.4rem;
+            letter-spacing: -0.5px;
+            background: rgba(255,255,240,0.9);
+            display: inline-block;
+            padding: 0 15px 0 8px;
+            border-radius: 60px;
+            color: #C23B00;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .title p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 8px;
+            color: #FFF2DF;
+        }
+
+        .nav-badge {
+            background: #ffdd99;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: #b45f1b;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            gap: 15px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* seção hero */
+        .hero {
+            background: #FFE3C9;
+            margin: 30px 0 20px;
+            border-radius: 70px;
+            padding: 2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.05);
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .hero-text h2 {
+            font-size: 2.2rem;
+            color: #E35F21;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            max-width: 500px;
+        }
+
+        .hero-emoji {
+            font-size: 5rem;
+            background: white;
+            border-radius: 100%;
+            padding: 15px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+
+        /* grade de anos */
+        .grade-ano {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 40px 0 20px;
+        }
+
+        .ano-card {
+            background: white;
+            border-radius: 60px;
+            padding: 12px 28px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.3rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 5px 0 #ddb582;
+            border: 2px solid #f7bc6c;
+            color: #9b4b1e;
+        }
+
+        .ano-card.ativo {
+            background: #FF9F4A;
+            color: white;
+            border-color: #FF9F4A;
+            box-shadow: 0 5px 0 #bb6b2a;
+            transform: scale(1.02);
+        }
+
+        .ano-card:hover {
+            transform: translateY(-3px);
+            background: #FFB45E;
+            color: white;
+        }
+
+        /* conteúdo principal - cards de atividades */
+        .conteudo-principal {
+            background: rgba(255, 248, 235, 0.7);
+            border-radius: 56px;
+            padding: 30px 25px;
+            margin: 20px 0 40px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .card-atividade {
+            background: white;
+            border-radius: 40px;
+            padding: 20px 20px 25px;
+            transition: transform 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #ffe1b9;
+        }
+
+        .card-atividade:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.2);
+        }
+
+        .emoji-materia {
+            font-size: 2.8rem;
+            background: #FFF1E0;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            margin-bottom: 15px;
+        }
+
+        .card-atividade h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            color: #e0652b;
+        }
+
+        .descricao {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .btn-desafio {
+            background: #FFD966;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #5a2e0e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn-desafio:hover {
+            background: #ffc107;
+            transform: scale(0.97);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        /* modal interativo */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #FFFCF5;
+            max-width: 550px;
+            width: 90%;
+            border-radius: 64px;
+            padding: 30px 25px 35px;
+            text-align: center;
+            position: relative;
+            animation: fadeUp 0.2s ease;
+            border: 2px solid #ffe1b0;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 24px;
+            top: 20px;
+            font-size: 32px;
+            cursor: pointer;
+            background: #ffeee2;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.1s;
+        }
+
+        .close-modal:hover {
+            background: #ffd0aa;
+        }
+
+        .pergunta {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            background: #FFEDD5;
+            padding: 15px;
+            border-radius: 40px;
+        }
+
+        .opcoes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .opcao {
+            background: #f2e3d5;
+            padding: 12px 25px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 90px;
+        }
+
+        .opcao:hover {
+            background: #FFB347;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .feedback {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-weight: bold;
+            min-height: 70px;
+        }
+
+        .feedback.certo {
+            color: #2b7a2b;
+        }
+
+        .feedback.errado {
+            color: #c0392b;
+        }
+
+        .next-btn {
+            background: #60b060;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        /* rodapé */
+        .footer {
+            background: #ffd29b;
+            margin-top: 40px;
+            text-align: center;
+            padding: 24px;
+            border-radius: 48px 48px 0 0;
+            font-weight: 500;
+            color: #6b3e1c;
+        }
+
+        @media (max-width: 700px) {
+            .hero-text h2 {
+                font-size: 1.7rem;
+            }
+            .title h1 {
+                font-size: 1.8rem;
+            }
+            .ano-card {
+                font-size: 1rem;
+                padding: 8px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container logo-area">
+        <div class="title">
+            <h1>🧸 Matemágica ✨</h1>
+            <p>Aventura matemática para crianças do 3º ao 5º ano</p>
+        </div>
+        <div class="nav-badge">
+            <span>➕</span> <span>➖</span> <span>✖️</span> <span>➗</span> <span>🧩</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <div class="hero-text">
+            <h2>📚 Aprender é Brincar!</h2>
+            <p>Clique nos desafios e pratique adição, subtração, multiplicação, divisão e muito mais. Cada ano tem perguntas especiais! 🎯</p>
+        </div>
+        <div class="hero-emoji">
+            🧮✨
+        </div>
+    </div>
+
+    <!-- seletor de anos -->
+    <div class="grade-ano" id="anoSelector">
+        <div data-ano="3" class="ano-card ativo">🐣 3º Ano</div>
+        <div data-ano="4" class="ano-card">🐱 4º Ano</div>
+        <div data-ano="5" class="ano-card">🦊 5º Ano</div>
+    </div>
+
+    <!-- cards dinâmicos -->
+    <div class="conteudo-principal">
+        <h2 style="font-size: 1.9rem; text-align: center;">🌟 Desafios Matemáticos 🌟</h2>
+        <div id="cardsContainer" class="cards-grid">
+            <!-- preenchido por js -->
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>🎓 Matemática divertida - 3º, 4º e 5º ano do Ensino Fundamental | Resolva os desafios e aprenda brincando 🎓</p>
+    <p style="margin-top: 8px;">✨ Cada acerto te deixa mais inteligente! ✨</p>
+</div>
+
+<!-- Modal do quiz -->
+<div id="quizModal" class="modal">
+    <div class="modal-content">
+        <div class="close-modal" id="closeModalBtn">&times;</div>
+        <div id="modalIcon" style="font-size: 3rem;">🧠</div>
+        <div id="modalTitle" class="pergunta" style="font-size: 1.5rem; background: #ffe2c4;">Carregando...</div>
+        <div id="questionText" style="font-size: 1.7rem; font-weight: bold; margin: 15px 0;">?</div>
+        <div id="optionsArea" class="opcoes"></div>
+        <div id="feedbackMsg" class="feedback"></div>
+        <button id="nextQuizBtn" class="next-btn">✨ Próxima pergunta ✨</button>
+    </div>
+</div>
+
+<script>
+    // ---------- Banco de questões por ano e por categoria ----------
+    // Cada questão: texto, opções (array), respostaCorreta (string ou número), dica (opcional)
+    const questoesPorAno = {
+        3: [
+            { titulo: "➕ Adição divertida", pergunta: "29 + 14 = ?", opcoes: ["43", "42", "44", "33"], resposta: "43" },
+            { titulo: "➖ Subtraindo brinquedos", pergunta: "57 - 23 = ?", opcoes: ["34", "35", "33", "30"], resposta: "34" },
+            { titulo: "✖️ Introdução à multiplicação", pergunta: "4 × 3 = ?", opcoes: ["12", "9", "16", "7"], resposta: "12" },
+            { titulo: "🧸 Sequência numérica", pergunta: "Qual é o próximo número? 15, 20, 25, ___", opcoes: ["30", "35", "28", "26"], resposta: "30" },
+            { titulo: "🍎 Dobro e metade", pergunta: "Qual é o dobro de 8?", opcoes: ["16", "14", "18", "12"], resposta: "16" }
+        ],
+        4: [
+            { titulo: "➕ Adição com reserva", pergunta: "268 + 179 = ?", opcoes: ["447", "437", "457", "467"], resposta: "447" },
+            { titulo: "✖️ Tabuada essencial", pergunta: "7 × 8 = ?", opcoes: ["56", "48", "64", "54"], resposta: "56" },
+            { titulo: "➖ Subtração com empréstimo", pergunta: "400 - 158 = ?", opcoes: ["242", "252", "248", "258"], resposta: "242" },
+            { titulo: "📏 Problema com medidas", pergunta: "Um lápis tem 15 cm. Quantos centímetros têm 4 lápis juntos?", opcoes: ["60 cm", "55 cm", "45 cm", "70 cm"], resposta: "60 cm" },
+            { titulo: "🧩 Divisão simples", pergunta: "36 ÷ 4 = ?", opcoes: ["9", "8", "7", "6"], resposta: "9" }
+        ],
+        5: [
+            { titulo: "✖️ Multiplicação maior", pergunta: "24 × 12 = ?", opcoes: ["288", "268", "278", "298"], resposta: "288" },
+            { titulo: "➗ Divisão com resto", pergunta: "85 ÷ 6 = ?", opcoes: ["14 resto 1", "13 resto 7", "14 resto 2", "13 resto 2"], resposta: "14 resto 1" },
+            { titulo: "🧮 Frações simples", pergunta: "Quanto é 1/4 de 100?", opcoes: ["25", "20", "30", "15"], resposta: "25" },
+            { titulo: "📊 Porcentagem inicial", pergunta: "10% de 90 reais é igual a:", opcoes: ["9 reais", "8 reais", "10 reais", "12 reais"], resposta: "9 reais" },
+            { titulo: "⚖️ Expressão numérica", pergunta: "(15 + 5) × 2 = ?", opcoes: ["40", "35", "30", "45"], resposta: "40" }
+        ]
+    };
+
+    // Categorias/temas interativos extras (mostrados nos cards) para cada ano 
+    // além do quiz, teremos cards divertidos que abrem perguntas correspondentes. 
+    // Vamos mapear títulos legais baseados nas questões.
+
+    function getCardsByAno(ano) {
+        const questoes = questoesPorAno[ano] || questoesPorAno[3];
+        // Criar 4 ou 5 cards com base nas questões disponíveis 
+        return questoes.map((q, idx) => ({
+            id: idx,
+            titulo: q.titulo,
+            descricao: `Pratique ${q.titulo.toLowerCase()} com um desafio incrível!`,
+            emoji: getEmojiPorTitulo(q.titulo),
+            questaoRef: q
+        }));
+    }
+
+    function getEmojiPorTitulo(titulo) {
+        if (titulo.includes("Adição")) return "➕";
+        if (titulo.includes("Subtração")) return "➖";
+        if (titulo.includes("Multiplicação") || titulo.includes("Tabuada")) return "✖️";
+        if (titulo.includes("Divisão")) return "➗";
+        if (titulo.includes("Sequência")) return "🔢";
+        if (titulo.includes("Dobro")) return "🍎";
+        if (titulo.includes("Problema")) return "📏";
+        if (titulo.includes("Frações")) return "🧮";
+        if (titulo.includes("Porcentagem")) return "💯";
+        if (titulo.includes("Expressão")) return "⚖️";
+        return "🧠";
+    }
+
+    let currentAno = 3;
+    let currentQuestionIndex = 0;
+    let currentQuestionsList = []; // armazena as questões do ano ativo
+    let currentQuizQuestion = null; // objeto da questão atual no modal
+
+    // elementos DOM
+    const anoSelectorDiv = document.getElementById('anoSelector');
+    const cardsContainer = document.getElementById('cardsContainer');
+    const modal = document.getElementById('quizModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const questionText = document.getElementById('questionText');
+    const optionsArea = document.getElementById('optionsArea');
+    const feedbackMsg = document.getElementById('feedbackMsg');
+    const nextQuizBtn = document.getElementById('nextQuizBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalIcon = document.getElementById('modalIcon');
+
+    // renderizar cards conforme ano atual
+    function renderCards() {
+        const cardsData = getCardsByAno(currentAno);
+        cardsContainer.innerHTML = '';
+        cardsData.forEach(card => {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'card-atividade';
+            cardDiv.innerHTML = `
+                <div class="emoji-materia">${card.emoji}</div>
+                <h3>${card.titulo}</h3>
+                <div class="descricao">${card.descricao}</div>
+                <button class="btn-desafio" data-idx="${card.id}">🎲 Tentar desafio →</button>
+            `;
+            cardsContainer.appendChild(cardDiv);
+        });
+
+        // adicionar eventos nos botões dos cards
+        document.querySelectorAll('.btn-desafio').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-idx'));
+                const cardsDataLocal = getCardsByAno(currentAno);
+                if (cardsDataLocal[idx]) {
+                    const questaoObj = cardsDataLocal[idx].questaoRef;
+                    openQuizWithQuestion(questaoObj);
+                }
+            });
+        });
+    }
+
+    // atualiza o ano ativo visual e os cards
+    function setAno(ano) {
+        currentAno = ano;
+        // atualizar classe ativa nos botões
+        document.querySelectorAll('.ano-card').forEach(el => {
+            const anoVal = parseInt(el.getAttribute('data-ano'));
+            if (anoVal === ano) {
+                el.classList.add('ativo');
+            } else {
+                el.classList.remove('ativo');
+            }
+        });
+        renderCards();
+    }
+
+    // abre modal com uma questão específica
+    function openQuizWithQuestion(question) {
+        currentQuizQuestion = { ...question };
+        modalTitle.innerText = currentQuizQuestion.titulo;
+        questionText.innerText = currentQuizQuestion.pergunta;
+        // gerar opções
+        optionsArea.innerHTML = '';
+        currentQuizQuestion.opcoes.forEach(op => {
+            const opcaoDiv = document.createElement('div');
+            opcaoDiv.className = 'opcao';
+            opcaoDiv.innerText = op;
+            opcaoDiv.addEventListener('click', () => {
+                checkAnswer(op, currentQuizQuestion.resposta);
+            });
+            optionsArea.appendChild(opcaoDiv);
+        });
+        feedbackMsg.innerHTML = '';
+        feedbackMsg.className = 'feedback';
+        modalIcon.innerText = getEmojiPorTitulo(currentQuizQuestion.titulo);
+        modal.style.display = 'flex';
+    }
+
+    function checkAnswer(selected, correctAnswer) {
+        // comparação normalizada (string)
+        let selecionadoStr = selected.toString().trim();
+        let corretoStr = correctAnswer.toString().trim();
+        let isCorrect = (selecionadoStr === corretoStr);
+        if (isCorrect) {
+            feedbackMsg.innerHTML = '🎉 Muito bem! Resposta correta! 🎉';
+            feedbackMsg.className = 'feedback certo';
+            // opcional: animação
+        } else {
+            feedbackMsg.innerHTML = `❌ Ops! Resposta errada. A resposta correta é: ${corretoStr}. Tente de novo! 🌟`;
+            feedbackMsg.className = 'feedback errado';
+        }
+        // desabilitar clique nas opções para não múltiplas respostas?
+        const allOpts = document.querySelectorAll('.opcao');
+        allOpts.forEach(opt => {
+            opt.style.pointerEvents = 'none';
+            opt.style.opacity = '0.6';
+        });
+        // mostrar botão próximo
+        nextQuizBtn.style.display = 'inline-block';
+    }
+
+    function loadNextRandomQuestion() {
+        // carrega uma nova questão do mesmo ano (diferente da atual se possível, mas pode repetir, mas é legal)
+        const questoes = questoesPorAno[currentAno];
+        if (!questoes || questoes.length === 0) return;
+        let newIndex = Math.floor(Math.random() * questoes.length);
+        // evitar mesma questão sucessiva se houver mais de 1
+        if (questoes.length > 1 && currentQuizQuestion && questoes[newIndex].pergunta === currentQuizQuestion.pergunta) {
+            newIndex = (newIndex + 1) % questoes.length;
+        }
+        const novaQuestao = { ...questoes[newIndex] };
+        // resetar modal
+        currentQuizQuestion = novaQuestao;
+        modalTitle.innerText = currentQuizQuestion.titulo;
+        questionText.innerText = currentQuizQuestion.pergunta;
+        optionsArea.innerHTML = '';
+        currentQuizQuestion.opcoes.forEach(op => {
+            const opcaoDiv = document.createElement('div');
+            opcaoDiv.className = 'opcao';
+            opcaoDiv.innerText = op;
+            opcaoDiv.addEventListener('click', () => {
+                checkAnswer(op, currentQuizQuestion.resposta);
+            });
+            optionsArea.appendChild(opcaoDiv);
+        });
+        feedbackMsg.innerHTML = '';
+        feedbackMsg.className = 'feedback';
+        modalIcon.innerText = getEmojiPorTitulo(currentQuizQuestion.titulo);
+        // reabilitar opções
+        const allOpts = document.querySelectorAll('.opcao');
+        allOpts.forEach(opt => {
+            opt.style.pointerEvents = 'auto';
+            opt.style.opacity = '1';
+        });
+        nextQuizBtn.style.display = 'inline-block';
+        // mas não queremos que o botão "próximo" acumule eventos; já tratamos.
+    }
+
+    // evento do botão próximo:  carrega outra pergunta do mesmo ano
+    nextQuizBtn.addEventListener('click', () => {
+        loadNextRandomQuestion();
+    });
+
+    // fechar modal
+    function closeModal() {
+        modal.style.display = 'none';
+        // reset feedback e reabilitar cliques caso reabra
+        feedbackMsg.innerHTML = '';
+        const allOpts = document.querySelectorAll('.opcao');
+        allOpts.forEach(opt => {
+            opt.style.pointerEvents = 'auto';
+            opt.style.opacity = '1';
+        });
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // evento de seleção de ano
+    anoSelectorDiv.querySelectorAll('.ano-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const ano = parseInt(card.getAttribute('data-ano'));
+            if (!isNaN(ano)) {
+                setAno(ano);
+            }
+        });
+    });
+
+    // Inicialização
+    setAno(3);
+
+    // Pequeno ajuste: garantir que ao abrir modal por card, as opções tenham eventos únicos e que o botão próximo carregue novas
+    // função auxiliar para quando for aberto via card (já foi implementada openQuizWithQuestion)
+    // também precisamos garantir que o nextQuizBtn funcione sempre com o ano atual
+    // e não conflitar com a questão atual -> o loadNextRandomQuestion usa o currentAno global
+    // e também atualiza o currentQuizQuestion.
+    // Para evitar problemas de ponteiro duplicado, removemos listeners antigos do botão? Não, já temos um único.
+    // Tudo ok.
+
+    // bônus: As questões podem ter textos longos, mas estão adequadas para faixa etária.
+    console.log("Site Matemágica carregado com sucesso!");
+</script>
+</body>
+</html>
